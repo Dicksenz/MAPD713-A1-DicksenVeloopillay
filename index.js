@@ -2,6 +2,12 @@ var SERVER_NAME = "image-api";
 var PORT = 5000;
 var HOST = "127.0.0.1";
 
+// GET request count
+var requestGetCounter = 0;
+
+//POST reequest count
+var requestPostCounter = 0;
+
 var restify = require("restify");
 
 // Get a persistence engine for the images
