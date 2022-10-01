@@ -93,3 +93,18 @@ server.get("/images", function (req, res, next) {
     res.send(images);
   });
 });
+
+// Delete all images
+server.del("/images", function (req, res, next) {
+  // Delete all images in imageSave
+  imagesSave.deleteMany(imagesSave.newImage, function (error, image) {
+    // If there are any errors, pass them to next in the correct format
+    if (error)
+      return next(
+        new restify.InvalidArgumentError(JSON.stringify(error.errors))
+      );
+
+    // Send a 200 OK response
+    res.send({ success: true, message: "All images have been deleted" });
+  });
+});
