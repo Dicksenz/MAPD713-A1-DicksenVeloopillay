@@ -36,3 +36,47 @@ const requestCountLogger = () => {
     requestPostCounter
   );
 };
+
+// Create a new image
+server.post("/images", function (req, res, next) {
+  // increment POST request counter
+  requestPostCounter++;
+  // Call function to log information
+  requestCountLogger();
+
+  // Make sure imageId is defined
+  if (req.params.name === undefined) {
+    // If there are any errors, pass them to next in the correct format
+    return next(new restify.InvalidArgumentError("imageId must be supplied"));
+  }
+  // Make sure name is defined
+  if (req.params.name === undefined) {
+    // If there are any errors, pass them to next in the correct format
+    return next(new restify.InvalidArgumentError("name must be supplied"));
+  }
+  if (req.params.url === undefined) {
+    // If there are any errors, pass them to next in the correct format
+    return next(new restify.InvalidArgumentError("Url must be supplied"));
+  }
+  if (req.params.size === undefined) {
+    // If there are any errors, pass them to next in the correct format
+    return next(new restify.InvalidArgumentError("Size must be supplied"));
+  }
+
+  // Create image object
+  var newImage = {
+    imageId: req.params.imageId,
+    name: req.params.name,
+    url: req.params.url,
+    size: req.params.size,
+  };
+
+  // Create the user using the persistence engine
+  imagesSave.create(newImage, function (error, image) {
+    // If there are any errors, pass them to next in the correct format
+    if (error) return next(JSON.stringify(error.errors));
+
+    // Send the user if no issues
+    res.send(201, image);
+  });
+});
