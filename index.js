@@ -33,12 +33,14 @@ server.use(restify.bodyParser());
 
 // Function to log GET and POST request counter
 const requestCountLogger = () => {
+  console.log("\n");
   console.log(
     "Processed Request Count--> Get:%s, Post:%s, Delete:%s",
     requestGetCounter,
     requestPostCounter,
     requestDeleteCounter
   );
+  console.log("\n");
 };
 
 // Create a new image
