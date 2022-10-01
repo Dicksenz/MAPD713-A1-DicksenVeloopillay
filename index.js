@@ -21,3 +21,9 @@ server.listen(PORT, HOST, function () {
   console.log("Endpoints:");
   console.log("http://127.0.0.1:5000/images method: GET, POST, DELETE");
 });
+
+// Allow the use of POST
+server.use(restify.fullResponse());
+
+// Maps req.body to req.params so there is no switching between them
+server.use(restify.bodyParser());
