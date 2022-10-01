@@ -8,6 +8,9 @@ var requestGetCounter = 0;
 //POST reequest count
 var requestPostCounter = 0;
 
+//Delete reequest count
+var requestDeleteCounter = 0;
+
 var restify = require("restify");
 
 // Get a persistence engine for the images
@@ -31,9 +34,10 @@ server.use(restify.bodyParser());
 // Function to log GET and POST request counter
 const requestCountLogger = () => {
   console.log(
-    "Processed Request Count--> Get:%s, Post:%s",
+    "Processed Request Count--> Get:%s, Post:%s, Delete:%s",
     requestGetCounter,
-    requestPostCounter
+    requestPostCounter,
+    requestDeleteCounter
   );
 };
 
@@ -96,6 +100,11 @@ server.get("/images", function (req, res, next) {
 
 // Delete all images
 server.del("/images", function (req, res, next) {
+  // increment DELETE request counter
+  requestDeleteCounter++;
+
+  requestCountLogger();
+
   // Delete all images in imageSave
   imagesSave.deleteMany(imagesSave.newImage, function (error, image) {
     // If there are any errors, pass them to next in the correct format
