@@ -80,3 +80,16 @@ server.post("/images", function (req, res, next) {
     res.send(201, image);
   });
 });
+
+// Get all images in system
+server.get("/images", function (req, res, next) {
+  // increment GET request counter
+  requestGetCounter++;
+
+  requestCountLogger();
+  // Find every entity within the given collection
+  imagesSave.find({}, function (error, images) {
+    // Return all of the images in the system
+    res.send(images);
+  });
+});
