@@ -52,6 +52,8 @@ server.post("/images", function (req, res, next) {
   // Call function to log information
   requestCountLogger();
 
+  console.log("POST /images");
+
   // Make sure imageId is defined
   if (req.params.name === undefined) {
     // If there are any errors, pass them to next in the correct format
@@ -95,6 +97,8 @@ server.get("/images", function (req, res, next) {
   requestGetCounter++;
 
   requestCountLogger();
+
+  console.log("GET /images");
   // Find every entity within the given collection
   imagesSave.find({}, function (error, images) {
     // Return all of the images in the system
@@ -108,6 +112,8 @@ server.del("/images", function (req, res, next) {
   requestDeleteCounter++;
 
   requestCountLogger();
+
+  console.log("DELETE /images");
 
   // Delete all images in imageSave
   imagesSave.deleteMany(imagesSave.newImage, function (error, image) {
