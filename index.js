@@ -55,7 +55,7 @@ server.post("/images", function (req, res, next) {
   console.log("POST /images");
 
   // Make sure imageId is defined
-  if (req.params.name === undefined) {
+  if (req.params.imageId === undefined) {
     // If there are any errors, pass them to next in the correct format
     return next(new restify.InvalidArgumentError("imageId must be supplied"));
   }
